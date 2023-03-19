@@ -2,69 +2,163 @@ import java.util.*;
 
 import static java.lang.Character.isUpperCase;
 
-public class Grammar
-{
+public class Grammar {
     // Some state variables as needed.
     // {V_n, V_t, P, S}
     final List<Character> V_n;
     final List<Character> V_t;
-    final HashMap<Character, List<String>> productions;
+    final HashMap<List<Character>, List<String>> productions;
 
-    public Grammar(List<Character> V_n, List<Character> V_t, HashMap<Character, List<String>> productions) {
+    Boolean was_transformed_from_nfa;
+
+    public Grammar(List<Character> V_n, List<Character> V_t, HashMap<List<Character>, List<String>> productions) {
         this.V_n = V_n;
         this.V_t = V_t;
         this.productions = productions;
+        this.was_transformed_from_nfa = false;
     }
 
     public String generate_string() {
 
+        if (was_transformed_from_nfa) {
+            System.out.println("ERROR: You can't do that with a DFA. Use the NFA version.");
+            return (null);
+        }
+
+
         // Initiate random and other variables
         Random rand = new Random();
-        String output_string = "";
-        String prompt = "S";
+//        String prompt = "S";
+        String prompt = V_n.get(0).toString();
 
-        // Parse the prompt, until everything is not lowercase,
-        // meaning all symbol are terminal.
-        while (!prompt.equals(prompt.toLowerCase())) {
+        // Convert V_n to a sequence of chars
+        StringBuilder V_n_string = new StringBuilder();
+
+        for (Character value : V_n) {
+            V_n_string.append(value);
+        }
+
+        // Parse the prompt, until there are no non-terminals left.
+        while (prompt.matches(".*[" + V_n_string + "].*")) {
             int index = 0;
-            output_string = "";
 
             // Parse the prompt length
             while (index < prompt.length()) {
                 Character current_char = prompt.charAt(index);
-                if (isUpperCase(current_char)) {
-                    // Perform safety check
-                    if (!V_n.contains(current_char)) {
-                        return "ERROR: Production invalid.";
-                    }
+
+                if (V_t.contains(current_char)) {
+                    index++;
+                    continue;
+                }
+
+                // Perform safety check
+                if (V_n.contains(current_char)) {
                     // Get the rules for the current character.
-                    List<String> result = productions.get(current_char);
+                    List<String> result = this.productions.get(List.of(current_char));
+
                     String next_rule = result.get(rand.nextInt(result.size()));
-                    // TODO: Remove this workaround
-                    // It is used to bypass generating the strings with
-                    // a dot at the end. The dot is used to indicate the
-                    // final state in a Finite Automata. :)
-                    if (next_rule.contains(".")) {
-                        next_rule = next_rule.replace(".", "");
-                    }
-                    output_string = output_string + next_rule;
-//                    System.out.println(current_char + " --> " + next_rule);
+
+                    // Empty string case
+                    next_rule = next_rule.replace("λ", "");
+
+                    prompt = prompt.replace(current_char.toString(), next_rule);
                 } else {
-                    output_string = output_string + current_char;
+                    prompt = prompt + current_char;
                 }
                 index++;
             }
-            prompt = output_string;
         }
-        return output_string;
+        return prompt;
     }
 
-    public FiniteAutomaton toFiniteAutomaton() {
+    public FiniteAutomaton to_finite_automaton() {
 
-        // Make the default FINAL state the dot (.),
-        // as a workaround for now.
-        FiniteAutomaton newAutomaton = new FiniteAutomaton(this.V_n, this.V_t, this.productions);
+        // Only convert if we have a type 3 grammar.
+        if (classify_grammar() != 3) {
+            System.out.println("Error: You can only convert Regular Grammar to Finite Automata");
+            return (null);
+        }
 
-        return newAutomaton;
+        // Convert productions to Finite Automata rules.
+        HashMap<List<Character> , List<String>> fa_rules = new HashMap<List<Character> , List<String>>();
+
+        for(List<Character> key: this.productions.keySet()) {
+            fa_rules.put(key, this.productions.get(key));
+        }
+
+        List<List<Character>> possible_states = new ArrayList<>();
+
+        for (Character key : this.V_n) {
+            possible_states.add(List.of(key));
+        }
+
+        FiniteAutomaton new_automaton = new FiniteAutomaton(possible_states, this.V_t, fa_rules, List.of('S'), List.of(), true);
+
+        return (new_automaton);
+    }
+
+    public Integer classify_grammar() {
+
+        int type_3_pass = 0;
+        int type_2_pass = 0;
+        int type_1_pass = 0;
+        int type_0_pass = 0;
+
+        for(List<Character> key: productions.keySet()) {
+            for (String value : productions.get(key)) {
+
+                StringBuilder lowercase_key_letters = new StringBuilder();
+                StringBuilder uppercase_key_letters = new StringBuilder();
+
+                for (Character temp_char : key) {
+
+                    if (Character.isLowerCase(temp_char)) {
+                        lowercase_key_letters.append(temp_char);
+                    } else if (Character.isUpperCase(temp_char)) {
+                        uppercase_key_letters.append(temp_char);
+                    }
+                }
+
+                StringBuilder lowercase_value_letters = new StringBuilder();
+                StringBuilder uppercase_value_letters = new StringBuilder();
+
+                for (int index = 0; index < value.length(); index++) {
+                    Character temp_char = value.charAt(index);
+
+                    if (Character.isLowerCase(temp_char)) {
+                        lowercase_value_letters.append(temp_char);
+                    } else if (Character.isUpperCase(temp_char)) {
+                        uppercase_value_letters.append(temp_char);
+                    }
+                }
+                // Check for type 3 (Regular Grammar)
+                if (key.size() == 1 && uppercase_value_letters.length() <= 1) {
+                    type_3_pass += 1;
+                }
+
+                // Check for type 2 (Context - Free)
+                else if (key.size() == 1) {
+                    type_2_pass += 1;
+                }
+
+                // Check for type 1 (Context sensitive)
+                else if (key.size() > 1 && lowercase_key_letters.length() == 0) {
+                    type_1_pass += 1;
+
+                // Check for type 0 (Unrestricted grammar)
+                } else {
+                    type_0_pass += 1;
+                }
+            }
+        }
+
+        if (type_0_pass > 0) {
+            return (0);
+        } else if (type_1_pass > 0) {
+            return (1);
+        } else if (type_2_pass > 0) {
+            return (2);
+        }
+        return (3);
     }
 }
