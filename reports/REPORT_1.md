@@ -1,4 +1,4 @@
-# LFAF Laboratory Work #2
+# LFAF Laboratory Work #1
 
 ### Course: Formal Languages & Finite Automata
 ### Author: Dumitru Moraru
