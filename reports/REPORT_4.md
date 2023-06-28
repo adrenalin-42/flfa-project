@@ -88,9 +88,9 @@ work if you are reading this <3.
 
 ### Results:
 
-#### Tokenizer.tokenize() method in action
+#### CNF Transformation in action
 
-```
+```jshelllanguage
 HashMap<List<Character>, List<String>> productions = QualityOfLife.initialize_productions();
 
 productions.put(List.of('S'), List.of("aA", "AC"));
@@ -104,6 +104,10 @@ List<Character> Vt = QualityOfLife.generate_vt_from_productions(productions);
 List<Character> Vn = QualityOfLife.generate_vn_from_productions(productions);
 
 Grammar grammar = new Grammar(Vn, Vt, productions, 'S');
+
+ChomskyNormalForm newGrammar = new ChomskyNormalForm(grammar);
+
+newGrammar.printGrammar();
 ```
 
 #### Output:

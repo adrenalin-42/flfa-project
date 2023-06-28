@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="01a472c0-8e82-4c95-a919-ba0c5144dc24" name="Changes" comment="lab #3">
-      <change afterPath="$PROJECT_DIR$/reports/REPORT_4.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ChomskyNormalForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QualityOfLife.java" afterDir="false" />
+    <list default="true" id="01a472c0-8e82-4c95-a919-ba0c5144dc24" name="Changes" comment="laboratory work #4 (thanks God I got here)">
+      <change afterPath="$PROJECT_DIR$/reports/REPORT_5.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Statement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FiniteAutomaton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FiniteAutomaton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Grammar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Grammar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/REPORT_4.md" beforeDir="false" afterPath="$PROJECT_DIR$/reports/REPORT_4.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tokenizer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +104,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680207940155</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="laboratory work #4 (thanks God I got here)">
+      <created>1687976039708</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1687976039708</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -112,7 +119,8 @@
     <MESSAGE value="laboratory work #2" />
     <MESSAGE value="quick fix" />
     <MESSAGE value="lab #3" />
-    <option name="LAST_COMMIT_MESSAGE" value="lab #3" />
+    <MESSAGE value="laboratory work #4 (thanks God I got here)" />
+    <option name="LAST_COMMIT_MESSAGE" value="laboratory work #4 (thanks God I got here)" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/flfa_project$Main.ic" NAME="Main Coverage Results" MODIFIED="1676599592575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
