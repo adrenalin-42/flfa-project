@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="01a472c0-8e82-4c95-a919-ba0c5144dc24" name="Changes" comment="quick fix">
-      <change afterPath="$PROJECT_DIR$/reports/REPORT_3.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Token.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Tokenizer.java" afterDir="false" />
+    <list default="true" id="01a472c0-8e82-4c95-a919-ba0c5144dc24" name="Changes" comment="lab #3">
+      <change afterPath="$PROJECT_DIR$/reports/REPORT_4.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ChomskyNormalForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QualityOfLife.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FiniteAutomaton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FiniteAutomaton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Grammar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Grammar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -95,14 +97,22 @@
       <option name="project" value="LOCAL" />
       <updated>1679211464998</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="lab #3">
+      <created>1680207940155</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1680207940155</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="laboratory work #2" />
     <MESSAGE value="quick fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="quick fix" />
+    <MESSAGE value="lab #3" />
+    <option name="LAST_COMMIT_MESSAGE" value="lab #3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/flfa_project$Main.ic" NAME="Main Coverage Results" MODIFIED="1676599592575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

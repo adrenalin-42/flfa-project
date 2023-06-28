@@ -5,9 +5,10 @@ import static java.lang.Character.isUpperCase;
 public class Grammar {
     // Some state variables as needed.
     // {V_n, V_t, P, S}
-    final List<Character> V_n;
+    List<Character> V_n;
     final List<Character> V_t;
-    final HashMap<List<Character>, List<String>> productions;
+    HashMap<List<Character>, List<String>> productions;
+    Character start_symbol;
 
     Boolean was_transformed_from_nfa;
 
@@ -16,6 +17,19 @@ public class Grammar {
         this.V_t = V_t;
         this.productions = productions;
         this.was_transformed_from_nfa = false;
+        try {
+            start_symbol = V_n.get(0);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException("V_n passed in grammar, has a size of 0.");
+        }
+    }
+
+    public Grammar(List<Character> V_n, List<Character> V_t, HashMap<List<Character>, List<String>> productions, Character start_symbol) {
+        this.V_n = V_n;
+        this.V_t = V_t;
+        this.productions = productions;
+        this.was_transformed_from_nfa = false;
+        this.start_symbol = start_symbol;
     }
 
     public String generate_string() {
@@ -29,7 +43,7 @@ public class Grammar {
         // Initiate random and other variables
         Random rand = new Random();
 //        String prompt = "S";
-        String prompt = V_n.get(0).toString();
+        String prompt = start_symbol.toString();
 
         // Convert V_n to a sequence of chars
         StringBuilder V_n_string = new StringBuilder();
@@ -59,7 +73,7 @@ public class Grammar {
                     String next_rule = result.get(rand.nextInt(result.size()));
 
                     // Empty string case
-                    next_rule = next_rule.replace("λ", "");
+                    next_rule = next_rule.replace("$", "");
 
                     prompt = prompt.replace(current_char.toString(), next_rule);
                 } else {
@@ -95,6 +109,15 @@ public class Grammar {
         FiniteAutomaton new_automaton = new FiniteAutomaton(possible_states, this.V_t, fa_rules, List.of('S'), List.of(), true);
 
         return (new_automaton);
+    }
+
+    public void printGrammar() {
+        System.out.println("Variables: " + V_n);
+        System.out.println("Terminals: " + V_t);
+        System.out.println("Productions: ");
+        for (List<Character> rule : productions.keySet()) {
+            System.out.println(rule.toString() + " -> " + productions.get(rule));
+        }
     }
 
     public Integer classify_grammar() {

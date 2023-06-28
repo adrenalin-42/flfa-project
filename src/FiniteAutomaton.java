@@ -18,7 +18,7 @@ public class FiniteAutomaton {
 
     Boolean was_transformed_from_nfa;
 
-    // EMPTY STRING -> λ
+    // EMPTY STRING -> $
 
     public FiniteAutomaton(List<List<Character>> possible_states,
                            List<Character> sigma, HashMap<List<Character>,
@@ -47,7 +47,7 @@ public class FiniteAutomaton {
             this.possible_states.add(List.of(state));
         }
         // TODO: Figure this out.
-//        this.possible_states.add(List.of('λ'));
+//        this.possible_states.add(List.of('$'));
         this.sigma = sigma;
         this.rules = new HashMap<>();
         this.initial_state = List.of(initial_state);
@@ -57,7 +57,7 @@ public class FiniteAutomaton {
         }
 
         if (final_states.isEmpty()) {
-            this.final_states = List.of(List.of('λ'));
+            this.final_states = List.of(List.of('$'));
         } else {
             this.final_states = List.of(final_states);
         }

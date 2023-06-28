@@ -1,25 +1,27 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String code = "Description {\n" +
-                "    name=\"John\"\n" +
-                "    type=\"NPC\"\n" +
-                "    mbti=\"intj\"\n" +
-                "    role=\"protagonist\"\n" +
-                "    background=\"John is a witch hunter\"\n" +
-                "}\n" +
-                "Setting {\n" +
-                "    type=\"game\"\n" +
-                "    category=\"adventure, magic, open-world\"\n" +
-                "    background=\"A world similar to Mars, where witches are living in forests and fight with humans\"\n" +
-                "}\n" +
-                "Response {\n" +
-                "    length=300\n" +
-                "    prompt=\"I need the background story of the character. Add some info about family. Give 3 possible stories in which John is side character\"\n" +
-                "}";
 
-        List<Token> tokens = Tokenizer.tokenize(code);
-        System.out.println(tokens);
+        HashMap<List<Character>, List<String>> productions = QualityOfLife.initialize_productions();
+
+        productions.put(List.of('S'), List.of("aA", "AC"));
+        productions.put(List.of('A'), List.of("a", "ASC", "BC", "aD"));
+        productions.put(List.of('B'), List.of("b", "bA"));
+        productions.put(List.of('C'), List.of("$", "BA"));
+        productions.put(List.of('D'), List.of("abC"));
+        productions.put(List.of('E'), List.of("aB"));
+
+        List<Character> Vt = QualityOfLife.generate_vt_from_productions(productions);
+        List<Character> Vn = QualityOfLife.generate_vn_from_productions(productions);
+
+        Grammar grammar = new Grammar(Vn, Vt, productions, 'S');
+
+        ChomskyNormalForm newGrammar = new ChomskyNormalForm(grammar);
+
+        newGrammar.printGrammar();
     }
 }
